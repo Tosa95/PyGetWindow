@@ -1,6 +1,8 @@
 import io
 import os
 import re
+import sys
+
 from setuptools import setup, find_packages
 
 scriptFolder = os.path.dirname(os.path.realpath(__file__))
@@ -16,6 +18,11 @@ with open("src/pygetwindow/__init__.py", "r") as fileObj:
 with io.open("README.md", encoding="utf-8") as fileObj:
     long_description = fileObj.read()
 
+requirements = ['pyrect==0.2.0', 'psutil==5.9.0']
+
+if sys.platform == "darwin":
+    requirements += ["pyobjc-framework-Quartz==8.5"]
+
 setup(
     name='PyGetWindow',
     version=version,
@@ -29,7 +36,7 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     test_suite='tests',
-    install_requires=['pyrect==0.2.0', 'psutil==5.9.0', "pyobjc-framework-Quartz==8.5"],
+    install_requires=requirements,
     keywords="gui window geometry resize minimize maximize close title",
     classifiers=[
         'Development Status :: 4 - Beta',
