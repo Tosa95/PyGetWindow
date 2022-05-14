@@ -38,6 +38,8 @@ enumWindowsProc = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_int, ctypes.POINTER
 getWindowText = ctypes.windll.user32.GetWindowTextW
 getWindowTextLength = ctypes.windll.user32.GetWindowTextLengthW
 isWindowVisible = ctypes.windll.user32.IsWindowVisible
+getWindowThreadProcessId = ctypes.windll.user32.GetWindowThreadProcessId
+
 
 
 class RECT(ctypes.Structure):
@@ -303,6 +305,12 @@ class Win32Window(BaseWindow):
     def visible(self):
         """Return ``True`` if the window is currently visible."""
         return isWindowVisible(self._hWnd)
+
+    @property
+    def processId(self):
+        lpdw_process_id = ctypes.c_ulong()
+        getWindowThreadProcessId(self._hWnd, ctypes.byref(lpdw_process_id))
+        return lpdw_process_id.value
 
 
 def cursor():

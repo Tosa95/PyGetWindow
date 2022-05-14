@@ -21,6 +21,8 @@ __version__ = "0.0.9"
 
 import sys, collections, pyrect
 
+import psutil
+
 
 class PyGetWindowException(Exception):
     """
@@ -142,6 +144,14 @@ class BaseWindow:
     @property
     def visible(self):
         raise NotImplementedError
+
+    @property
+    def processId(self):
+        raise NotImplementedError
+
+    @property
+    def process(self):
+        return psutil.Process(self.processId)
 
     # Wrappers for pyrect.Rect object's properties:
     @property
@@ -339,7 +349,7 @@ elif sys.platform == "win32":
         getWindowsAt,
         getWindowsWithTitle,
         getAllWindows,
-        getAllTitles,
+        getAllTitles
     )
 
     Window = Win32Window

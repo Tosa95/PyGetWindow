@@ -29,7 +29,7 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     test_suite='tests',
-    install_requires=['pyrect'],
+    install_requires=['pyrect==0.2.0', 'psutil==5.9.0', "pyobjc-framework-Quartz==8.5"],
     keywords="gui window geometry resize minimize maximize close title",
     classifiers=[
         'Development Status :: 4 - Beta',
